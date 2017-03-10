@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-protocol LocalSearchManagerDelegate: class {
+public protocol LocalSearchManagerDelegate: class {
     func searchCompleter(returnedResults results:[MKLocalSearchCompletion])
     func localSearch(returnedMapItems mapItems:[MKMapItem])
 }
@@ -21,19 +21,19 @@ protocol LocalSearchManagerDelegate: class {
     Once you have a result you'd like to grab the exact location of, call *findExactLocation* which will call back *localSearch(ReturnedMapItems)* with an *Array<MKMapItem>*
 */
 
-final class LocalSearchManager: NSObject, MKLocalSearchCompleterDelegate {
+public final class LocalSearchManager: NSObject, MKLocalSearchCompleterDelegate {
     
-    var searchCompleter: MKLocalSearchCompleter!
+    public var searchCompleter: MKLocalSearchCompleter!
     
     weak var delegate: LocalSearchManagerDelegate!
     
-    var searchResults: [MKLocalSearchCompletion]?
+    public var searchResults: [MKLocalSearchCompletion]?
     
-    var searchSpan: MKCoordinateSpan
+    public var searchSpan: MKCoordinateSpan
     
-    var searchCenter: CLLocationCoordinate2D!
+    public var searchCenter: CLLocationCoordinate2D!
     
-    init(delegate:LocalSearchManagerDelegate, searchSpan: MKCoordinateSpan){
+    public init(delegate:LocalSearchManagerDelegate, searchSpan: MKCoordinateSpan){
         self.delegate = delegate
         self.searchSpan = searchSpan
         super.init()
@@ -51,7 +51,7 @@ final class LocalSearchManager: NSObject, MKLocalSearchCompleterDelegate {
     }
     
     //MARK: SearchCompleterDelegate
-    internal func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+    public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         self.searchResults = completer.results
         delegate.searchCompleter(returnedResults: completer.results)
     }
